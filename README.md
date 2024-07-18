@@ -4,7 +4,7 @@
 
 1. Clone repositori:
     ```bash
-    git clone [URL_REPOSITORI]
+    git clone [https://github.com/Kawan-HTML/kawanhtml]
     ```
 
 2. Masuk ke repositori:
