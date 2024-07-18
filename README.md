@@ -4,12 +4,12 @@
 
 1. Clone repositori:
     ```bash
-    git clone [https://github.com/Kawan-HTML/kawanhtml]
+    git clone https://github.com/Kawan-HTML/kawanhtml
     ```
 
 2. Masuk ke repositori:
     ```bash
-    cd [kawanhtml]
+    cd kawanhtml
     ```
 
 3. Salin file `.env.example` menjadi `.env`:
