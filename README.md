@@ -35,7 +35,7 @@
 2. Buka phpMyAdmin di browser:
     [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
 
-3. Klik menu 'Databases' dan buat database `kawanhtml` seperti pada gambar:
+3. Klik menu 'Databases' dan buat database `kawanhtml` seperti pada gambar dan klik 'create':
     ![DB](README/step2.png)
 
 4. Klik menu 'SQL':
