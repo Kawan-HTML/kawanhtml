@@ -1,32 +1,51 @@
+@extends('layouts.app')
+
+@section('title', 'Beranda')
+
+@section('content')
+
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda</title>
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
-    <script type="text/javascript"> 
+    <script type="text/javascript">
         document.onkeydown = function(e) {
-            if(event.keyCode == 123) {
+            if (event.keyCode == 123) {
                 return false;
             }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
                 return false;
             }
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
                 return false;
             }
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
                 return false;
             }
         }
     </script>
 
     <style>
+        /* CSS FOR SUBMENU */
+        .custom-heading {
+            font-family: 'Arial', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #FF6D00;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid #FF6D00;
+        }
         /* CSS FOR Hero */
         .hero-section {
             background-image: url('images/home/background.png');
@@ -37,11 +56,11 @@
             align-items: center;
             justify-content: center;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .hero-section .container {
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             padding: 2rem;
             border-radius: 10px;
         }
@@ -62,7 +81,7 @@
             background-color: #ff6600;
             border-color: #ff6600;
         }
-        
+
         .hero-section .btn-primary:hover {
             background-color: #e55c00;
             border-color: #e55c00;
@@ -73,7 +92,7 @@
             background: linear-gradient(45deg, #f3f3f3, #ffffff);
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
         .about-section h2 {
@@ -121,46 +140,60 @@
             }
         }
 
-        /* CSS FOR Services */
-        .wrapper {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        /* CSS FOR SERVICES */
+        .description p {
+            color: #b0b0ba;
+            padding-top: 5px;
+            margin-bottom: 5px;
+            line-height: 1.3;
         }
-        .wrapper .container {
-            height: 400px;
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
+
+        .description h4 {
+            text-transform: uppercase;
+            margin-bottom: 10px;
         }
-        .card {
-            padding-top: 10px;
-            width: 80px;
-            border-radius: 2rem;
+
+        .description .price {
+            color: #FF6D00;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .service-card {
             background-size: cover;
-            cursor: pointer;
-            overflow: hidden;
-            margin: 0 10px;
+            background-position: center;
+            border-radius: 1rem;
+            padding: 2rem;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            transition: .6s cubic-bezier(.28,-0.03,0,.99);
-            box-shadow: 0px 10px 30px -5px rgba(0,0,0,0.8);
-            height: 400px;
             text-align: center;
-        }
-        .card > .row {
-            height: auto;
             color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px;
-            width: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
-        .card > .row > .icon {
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .service-card>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-icon {
             background: #FF6D00;
             color: white;
             border-radius: 50%;
@@ -171,79 +204,59 @@
             align-items: center;
             margin: 0 0 15px 0;
         }
-        .card > .row > .description {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-            overflow: hidden;
-            height: auto;
-            width: 100%;
-            opacity: 0;
-            transform: translateY(30px);
-            transition-delay: .3s;
-            transition: all .3s ease;
-        }
-        .description p {
-            color: #b0b0ba;
-            padding-top: 5px;
-            margin-bottom: 5px;
-            line-height: 1.3;
-        }
-        .description h4 {
-            text-transform: uppercase;
+
+        .service-card h4 {
             margin-bottom: 10px;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.5 ease;
         }
-        .description .price {
+
+        .service-card .price {
             color: #FF6D00;
             font-weight: bold;
             margin-top: 10px;
         }
-        .wrapper input {
-            display: none;
-        }
-        .wrapper input:checked + label {
-            width: 400px;
-        }
-        .wrapper input:checked + label .description {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+
+        .service-card:hover {
+            transform: perspective(1000px) rotateY(10deg) translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .card[for="c1"] {
-            background-image: url('images/home/HTMLbasic.gif');
+        /* Staggered layout: */
+        .row>.col-md-6.col-lg-4:nth-child(odd) {
+            margin-top: 0;
         }
-        .card[for="c2"] {
-            background-image: url('images/home/HTMLpremium.gif');
+
+        .row>.col-md-6.col-lg-4:nth-child(even) {
+            margin-top: 30px;
         }
-        .card[for="c3"] {
+
+        @media (max-width: 768px) {
+            .row>.col-md-6.col-lg-4 {
+                margin-top: 0;
+            }
+        }
+
+        .row>.col-md-6.col-lg-4:nth-child(1) .service-card {
+            background-image: url('images/home/HTMLcard.gif');
+        }
+
+        .row>.col-md-6.col-lg-4:nth-child(2) .service-card {
+            background-image: url('images/home/HTMLconnect.gif');
+        }
+
+        .row>.col-md-6.col-lg-4:nth-child(3) .service-card {
             background-image: url('images/home/HTMLcustom.gif');
         }
-        .card[for="c4"] {
+
+        .row>.col-md-6.col-lg-4:nth-child(4) .service-card {
+            background-image: url('images/home/HTMLblog.gif');
+        }
+
+        .row>.col-md-6.col-lg-4:nth-child(5) .service-card {
             background-image: url('images/home/HTMLportofolio.gif');
         }
 
-        .card {
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 1;
-        }
-
-        .card .row {
-            position: relative;
-            z-index: 2;
-        }
 
         /* CSS FOR TESTIMONIAL */
         .testimonial-row {
@@ -284,39 +297,8 @@
         }
     </style>
 </head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/home/logo.png') }}" alt="ADD LIFE Logo" height="30">
-                <span style="font-weight: bold;">Kawan HTML</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home" style="color: #333; transition: color 0.3s ease;" onmouseover="this.style.color='#ff6600'" onmouseout="this.style.color='#333'">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about" style="color: #333; transition: color 0.3s ease;" onmouseover="this.style.color='#ff6600'" onmouseout="this.style.color='#333'">Tentang</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#services" style="color: #333; transition: color 0.3s ease;" onmouseover="this.style.color='#ff6600'" onmouseout="this.style.color='#333'">Produk</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#testimonials" style="color: #333; transition: color 0.3s ease;" onmouseover="this.style.color='#ff6600'" onmouseout="this.style.color='#333'">Testimoni</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact" style="color: #333; transition: color 0.3s ease;" onmouseover="this.style.color='#ff6600'" onmouseout="this.style.color='#333'">Hubungi</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
+<body>
     <!-- Hero Section -->
     <div class="jumbotron jumbotron-fluid text-center hero-section" id="home">
         <div class="container">
@@ -334,14 +316,16 @@
             </div>
             <div class="col-md-6 fade-in">
                 <h2 class="mb-4">Tentang HTML</h2>
-                <p>HTML (Hubungan Terjalin Melalui Letters) adalah layanan kartu ucapan, surat, dan undangan digital yang inovatif. Kami hadir untuk memudahkan Anda mengirim pesan personal secara efisien, tanpa batasan jarak dan waktu.</p>
-                <p>Keunggulan kami:</p>
-                <ul class="feature-list">
+                <p style="color: #333333">HTML (Hubungan Terjalin Melalui Letters) adalah layanan kartu ucapan, surat, dan undangan digital
+                    yang inovatif. Kami hadir untuk memudahkan Anda mengirim pesan personal secara efisien, tanpa
+                    batasan jarak dan waktu.</p>
+                <p style="color: #333333">Keunggulan kami:</p>
+                <ul class="feature-list" style="color: #333">
                     <li><i class="fas fa-palette"></i> Desain yang dapat disesuaikan</li>
                     <li><i class="fas fa-globe"></i> Berbasis digital</li>
                     <li><i class="fas fa-tag"></i> Harga terjangkau</li>
                 </ul>
-                <p>Dengan HTML, sampaikan pesan Anda dengan cara yang lebih modern dan ekspresif.</p>
+                <p style="color: #333">Dengan HTML, sampaikan pesan Anda dengan cara yang lebih modern dan ekspresif.</p>
                 {{-- <a href="#" class="btn btn-primary">Mulai Sekarang</a> --}}
             </div>
         </div>
@@ -349,66 +333,92 @@
 
     <!-- Services Section -->
     <div class="container my-5" id="services">
-        <h2 class="text-center mb-4">Produk Kami</h2>
-        <div class="wrapper">
-            <div class="container">
-                <input type="radio" name="slide" id="c1" checked>
-                <label for="c1" class="card">
-                    <div class="row">
-                        <div class="icon"><i class="fa fa-envelope"></i></div>
-                        <div class="description">
-                            <h4>HTML Basic</h4>
-                            <p>Menggunakan desain template dan menyesuaikan dengan permintaan pelanggan</p>
-                            <p class="price">Mulai dari Rp1.000</p>
-                        </div>
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">
+                <span class="d-inline-block px-4 py-2 rounded-pill custom-heading">
+                    Produk Kami
+                </span>
+            </h2>
+        </div>        
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="service-card" style="background-image: url('images/home/HTMLcard.gif');">
+                    <div class="service-icon">
+                        <i class="fa fa-envelope"></i>
                     </div>
-                </label>
-                <input type="radio" name="slide" id="c2">
-                <label for="c2" class="card">
-                    <div class="row">
-                        <div class="icon"><i class="fa fa-file-alt"></i></div>
-                        <div class="description">
-                            <h4>HTML Premium</h4>
-                            <p>Menambahkan interaksi dengan pengguna</p>
-                            <p class="price">Mulai dari Rp10.000</p>
-                        </div>
+                    <h4>HTML Card</h4>
+                    <p>Cobalah membuat kartu elektronikmu dengan HTML Card Generator</p>
+                    <p class="price">Mulai dari Rp.0</p>
+                    <a href="/html-card" class="btn btn-primary">Lihat Detail</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card" style="background-image: url('images/home/HTMLconnect.gif');">
+                    <div class="service-icon">
+                        <i class="fa fa-file-alt"></i>
                     </div>
-                </label>
-                <input type="radio" name="slide" id="c3">
-                <label for="c3" class="card">
-                    <div class="row">
-                        <div class="icon"><i class="fa fa-palette"></i></div>
-                        <div class="description">
-                            <h4>HTML Custom</h4>
-                            <p>Pengerjaan produk semua berdasarkan permintaan pelanggan</p>
-                            <p class="price">Harga disesuaikan dengan kompleksitas</p>
-                        </div>
+                    <h4>HTML Connect</h4>
+                    <p>Ayo jalin hubungan yang erat satu sama lain dan sampaikan ekspresimu</p>
+                    <p class="price">Mulai dari Rp2.000</p>
+                    <a href="/html-connect" class="btn btn-primary">Lihat Detail</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card" style="background-image: url('images/home/HTMLcustom.gif');">
+                    <div class="service-icon">
+                        <i class="fa fa-palette"></i>
                     </div>
-                </label>
-                <input type="radio" name="slide" id="c4">
-                <label for="c4" class="card">
-                    <div class="row">
-                        <div class="icon"><i class="fa fa-laptop-code"></i></div>
-                        <div class="description">
-                            <h4>HTML Portofolio</h4>
-                            <p>Layanan untuk pembuatan website portofolio pribadi</p>
-                            <p class="price">Mulai dari Rp100.000</p>
-                        </div>
+                    <h4>HTML Custom</h4>
+                    <p>Ingin layanan berbasis web? HTML Custom solusinya</p>
+                    <p class="price">Harga disesuaikan dengan kompleksitas</p>
+                    <a href="/html-custom" class="btn btn-primary">Lihat Detail</a>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-4 mb-4">
+                <div class="service-card" style="background-image: url('images/home/HTMLblog.gif');">
+                    <div class="service-icon">
+                        <i class="fa fa-blog"></i>
                     </div>
-                </label>
+                    <h4>HTML Blog</h4>
+                    <p>Bagikan ceritamu ke dalam personal blog</p>
+                    <p class="price">Mulai dari Rp50.000</p>
+                    <a href="/html-blog" class="btn btn-primary">Lihat Detail</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card" style="background-image: url('images/home/HTMLportofolio.gif');">
+                    <div class="service-icon">
+                        <i class="fa fa-laptop-code"></i>
+                    </div>
+                    <h4>HTML Portofolio</h4>
+                    <p>Ekpresikan dirimu dengan website pribadi kamu</p>
+                    <p class="price">Mulai dari Rp50.000</p>
+                    <a href="/html-portfolio" class="btn btn-primary">Lihat Detail</a>
+                </div>
             </div>
         </div>
     </div>
 
+
+
     <!-- Testimonial Section -->
     <div class="container my-5" id="testimonials">
-        <h2 class="text-center mb-4">Apa Kata Mereka</h2>
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">
+                <span class="d-inline-block px-4 py-2 rounded-pill custom-heading">
+                    Apa kata mereka
+                </span>
+            </h2>
+        </div> 
         <div class="row testimonial-row">
             <div class="col-md-4 mb-4">
                 <div class="testimonial-item">
                     <div class="testimonial-content">
-                        <p>"HTML membantu saya membuat undangan pernikahan digital yang indah. Tamu-tamu sangat terkesan!"</p>
-                        <h5>Budi Santoso</h5>
+                        <p style="color: #333">"HTML membantu saya membuat undangan pernikahan digital yang indah. Tamu-tamu sangat
+                            terkesan!"</p>
+                        <h5 style="color: #333">Budi Santoso</h5>
                         <div class="stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -422,8 +432,9 @@
             <div class="col-md-4 mb-4">
                 <div class="testimonial-item">
                     <div class="testimonial-content">
-                        <p>"Layanan HTML Premium sangat worth it! Interaksi yang ditambahkan membuat kartu ucapan saya jadi lebih berkesan."</p>
-                        <h5>Siti Rahma</h5>
+                        <p style="color: #333">"Layanan HTML Premium sangat worth it! Interaksi yang ditambahkan membuat kartu ucapan saya
+                            jadi lebih berkesan."</p>
+                        <h5 style="color: #333">Siti Rahma</h5>
                         <div class="stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -437,8 +448,9 @@
             <div class="col-md-4 mb-4">
                 <div class="testimonial-item">
                     <div class="testimonial-content">
-                        <p>"Terima kasih HTML atas website portofolio yang keren! Sangat membantu karir saya sebagai desainer grafis."</p>
-                        <h5>Andi Prasetyo</h5>
+                        <p style="color: #333">"Terima kasih HTML atas website portofolio yang keren! Sangat membantu karir saya sebagai
+                            desainer grafis."</p>
+                        <h5 style="color: #333">Andi Prasetyo</h5>
                         <div class="stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -454,7 +466,13 @@
 
     <!-- Contact Section -->
     <div class="container my-5" id="contact">
-        <h2 class="text-center">Hubungi Kami</h2>
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">
+                <span class="d-inline-block px-4 py-2 rounded-pill custom-heading">
+                    Hubungi kami
+                </span>
+            </h2>
+        </div> 
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <form>
@@ -481,7 +499,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0">
-                    <img src="images/home/footer.png" alt="Company Logo" class="img-fluid mb-3" style="max-width: 250px;">
+                    <img src="images/home/footer.png" alt="Company Logo" class="img-fluid mb-3"
+                        style="max-width: 250px;">
                 </div>
                 <div class="col-lg-4 mb-4 mb-lg-0">
                     <h5>Useful Links</h5>
@@ -527,9 +546,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-    
+
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
@@ -537,4 +556,6 @@
         });
     </script>
 </body>
+
 </html>
+@endsection
