@@ -5,7 +5,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\PortfolioController;
 
 Route::get('/', function () {
-    return view('test');
+    return view('login');
 });
 
 Route::get('/home', function () {
@@ -24,8 +24,14 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google-auth');
-Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+Route::middleware(['web'])->group(function () {
+    Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google-auth');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+});
+
+// Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google-auth');
+// Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
